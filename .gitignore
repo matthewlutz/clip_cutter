@@ -1,0 +1,22 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+venv/
+ENV/
+
+# Environment
+.env
+
+# Test videos (large files)
+test_videos/
+
+# Temp files
+*.tmp
+*.log
+
+# IDE
+.vscode/
+.idea/
