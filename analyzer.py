@@ -158,21 +158,47 @@ Example format:
 
 Return ONLY the JSON array, no other text."""
 
-    response = client.models.generate_content(
-        model="gemini-2.0-flash",
-        contents=[
-            types.Content(
-                role="user",
-                parts=[
-                    types.Part.from_uri(
-                        file_uri=video_file.uri,
-                        mime_type=video_file.mime_type,
+    # Retry logic for rate limits
+    max_retries = 5
+    retry_delay = 30  # Start with 30 seconds
+
+    for attempt in range(max_retries):
+        try:
+            if cancel_event and cancel_event.is_set():
+                raise InterruptedError("Cancelled by user")
+
+            response = client.models.generate_content(
+                model="gemini-2.0-flash",
+                contents=[
+                    types.Content(
+                        role="user",
+                        parts=[
+                            types.Part.from_uri(
+                                file_uri=video_file.uri,
+                                mime_type=video_file.mime_type,
+                            ),
+                            types.Part.from_text(text=prompt),
+                        ],
                     ),
-                    types.Part.from_text(text=prompt),
                 ],
-            ),
-        ],
-    )
+            )
+            break  # Success, exit retry loop
+
+        except Exception as e:
+            error_str = str(e)
+            if "429" in error_str or "RESOURCE_EXHAUSTED" in error_str:
+                if attempt < max_retries - 1:
+                    print(f"Rate limited, waiting {retry_delay}s before retry {attempt + 2}/{max_retries}...")
+                    # Wait with cancellation check
+                    for _ in range(retry_delay):
+                        if cancel_event and cancel_event.is_set():
+                            raise InterruptedError("Cancelled by user")
+                        time.sleep(1)
+                    retry_delay = min(retry_delay * 2, 120)  # Exponential backoff, max 2 min
+                else:
+                    raise ValueError(f"Rate limit exceeded after {max_retries} retries. Please wait or upgrade your Gemini API plan.")
+            else:
+                raise
 
     # Parse the response
     response_text = response.text.strip()
