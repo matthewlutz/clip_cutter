@@ -1,0 +1,31 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(ffmpeg:*)",
+      "Bash(pip install:*)",
+      "Bash(where:*)",
+      "Bash(winget install:*)",
+      "Bash(ffprobe:*)",
+      "Bash(python:*)",
+      "Bash(dir /s /b C:ffmpeg*)",
+      "Bash(echo:*)",
+      "Bash(curl:*)",
+      "Bash(unzip:*)",
+      "Bash(/c/ffmpeg/bin/ffprobe:*)",
+      "Bash(powershell -Command:*)",
+      "Bash(/c/ffmpeg/bin/ffmpeg:*)",
+      "Bash(git init:*)",
+      "Bash(git remote add:*)",
+      "Bash(git add:*)",
+      "Bash(git commit -m \"$\\(cat <<''EOF''\nInitial commit: Football Video Analyzer\n\n- Gradio web UI for analyzing football videos\n- Gemini 2.0 Flash integration for AI video analysis\n- FFmpeg-based clip extraction and concatenation\n- Auto-segmentation for large videos \\(>1.8GB\\)\n- Sporty PFF-style UI with Oswald/Roboto fonts\n- Cancel and clear video functionality\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>\nEOF\n\\)\")",
+      "Bash(git branch:*)",
+      "Bash(git push:*)",
+      "Bash(git commit:*)",
+      "Bash(copy analyzer.py backend )",
+      "Bash(copy clipper.py backend )",
+      "Bash(copy .env backend)",
+      "Bash(cmd /c \"copy analyzer.py backend\\\\ && copy clipper.py backend\\\\ && copy .env backend\"\")",
+      "Bash(npm install)"
+    ]
+  }
+}
