@@ -25,7 +25,11 @@
       "Bash(copy clipper.py backend )",
       "Bash(copy .env backend)",
       "Bash(cmd /c \"copy analyzer.py backend\\\\ && copy clipper.py backend\\\\ && copy .env backend\"\")",
-      "Bash(npm install)"
+      "Bash(npm install)",
+      "Bash(git reset:*)",
+      "Bash(npx tsc:*)",
+      "Bash(npm run build:*)",
+      "Bash(ls:*)"
     ]
   }
 }

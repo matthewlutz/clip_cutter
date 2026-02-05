@@ -38,6 +38,12 @@ class Timestamp(BaseModel):
     start_time: float = Field(..., ge=0, description="Start time in seconds")
     end_time: float = Field(..., ge=0, description="End time in seconds")
     description: str = Field(default="", description="Description of what happens")
+    play_description: Optional[str] = Field(default=None, description="Detailed play description")
+    confidence_score: Optional[int] = Field(default=None, ge=0, le=100, description="Detection confidence")
+    camera_angle: Optional[str] = Field(default=None, description="Camera angle (sideline, endzone, etc.)")
+    player_jersey: Optional[str] = Field(default=None, description="Player jersey number")
+    action_type: Optional[str] = Field(default=None, description="Type of action (catch, run, etc.)")
+    verification_status: Optional[str] = Field(default=None, description="Verification status")
 
 
 class TimestampList(BaseModel):
@@ -62,7 +68,7 @@ class UserSettings(BaseModel):
     """User settings model."""
     user_id: UUID
     default_padding: float = Field(default=2.0, ge=0, le=10)
-    theme: ThemeChoice = ThemeChoice.LIGHT
+    theme: ThemeChoice = ThemeChoice.DARK
     gemini_api_key: Optional[str] = None
 
 

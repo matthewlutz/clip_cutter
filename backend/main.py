@@ -14,8 +14,8 @@ from fastapi.responses import FileResponse
 from pydantic import BaseModel
 from dotenv import load_dotenv
 
-from analyzer import analyze_video
-from clipper import extract_clips, get_video_info
+from services.analyzer import analyze_video
+from services.clipper import extract_clips, get_video_info
 
 load_dotenv()
 
